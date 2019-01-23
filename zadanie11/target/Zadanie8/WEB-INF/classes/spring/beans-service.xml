@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="classpath:/spring/jdbc.properties"/>
+
+    <bean id="memberDao" class="spring.jdbc.MemberServiceImp"/>
+
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close"
+          p:driverClassName="${dataSource.driverClassName}"
+          p:url="${dataSource.url}"
+          p:username="${dataSource.username}"
+          p:password="${dataSource.password}"
+    />
+
+    <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate"
+          c:dataSource-ref="dataSource" />
+
+</beans>
